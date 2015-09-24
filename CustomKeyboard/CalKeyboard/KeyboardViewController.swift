@@ -11,7 +11,12 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
-    
+    @IBOutlet var deleteKeyboardButton: UIButton!
+    @IBOutlet var sadButton: UIButton!
+    @IBOutlet var neutralButton: UIButton!
+    @IBOutlet var smileyButton: UIButton!
+    @IBOutlet var returnButton: UIButton!
+
     var keyboardView: UIView!
 
     override func updateViewConstraints() {
@@ -45,7 +50,35 @@ class KeyboardViewController: UIInputViewController {
         view.addSubview(keyboardView)
         view.backgroundColor = keyboardView.backgroundColor
         nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside) // advanceToNextInputMode is already defined in template
+        deleteKeyboardButton.addTarget(self, action: "delete", forControlEvents: .TouchUpInside)
+        sadButton.addTarget(self, action: "sad", forControlEvents: .TouchUpInside)
+        smileyButton.addTarget(self, action: "smiley", forControlEvents: .TouchUpInside)
+        neutralButton.addTarget(self, action: "neutral", forControlEvents: .TouchUpInside)
+        returnButton.addTarget(self, action: "returnFunc", forControlEvents: .TouchUpInside)
     }
-
-
+    
+    func delete() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.deleteBackward()
+    }
+    
+    func sad() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.insertText(":-(")
+    }
+    
+    func neutral() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.insertText(":-|")
+    }
+    
+    func smiley() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.insertText(":-)")
+    }
+    
+    func returnFunc() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.insertText("\n")
+    }
 }
